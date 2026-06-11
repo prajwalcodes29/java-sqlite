@@ -12,7 +12,6 @@ public class Todo {
      this.id = id;
      this.title = title;
      this.completed = completed;
-   
  }
 
  public Long getId(){

@@ -1,10 +1,10 @@
 package com.example.todoapp.controller;
 import com.example.todoapp.dto.CreateTodoRequest;
 import com.example.todoapp.model.Todo;
+import com.example.todoapp.service.CsvParserService;
 import com.example.todoapp.service.TodoService;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -28,5 +28,11 @@ public class TodoController {
     ){
         service.createTodo(request.getTitle());
         return "Todo Created";
+    }
+
+    @PostMapping("/upload")
+    public String uploadCsv(@RequestParam("file") MultipartFile file) {
+        CsvParserService.parseAndSave(file);
+        return "CSV upload route created";
     }
 }

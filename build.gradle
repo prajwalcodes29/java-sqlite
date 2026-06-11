@@ -12,7 +12,9 @@ java {
         languageVersion = JavaLanguageVersion.of(25)
     }
 }
-
+bootRun {
+    jvmArgs = ['--enable-native-access=ALL-UNNAMED']
+}
 repositories {
     mavenCentral()
 }
@@ -22,6 +24,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-jdbc'
     implementation 'org.xerial:sqlite-jdbc:3.50.3.0'
+	implementation 'org.apache.commons:commons-csv:1.14.0'
     testImplementation 'org.xerial:sqlite-jdbc:3.50.3.0'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
 
