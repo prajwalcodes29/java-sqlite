@@ -18,7 +18,10 @@ public class TodoController {
     }
 
     @GetMapping
-    public List<Todo> geTodos(){
+    public List<Todo> geTodos(@RequestParam(required = false) Long userId){
+        if (userId != null) {
+            return service.getTodosByUserId(userId);
+        }
         return service.getAllTodos();
     }
 
@@ -26,7 +29,7 @@ public class TodoController {
     public String createTodo(
         @RequestBody CreateTodoRequest request
     ){
-        service.createTodo(request.getTitle());
+        service.createTodo(request.getTitle(), request.getCompleted(), request.getUserId());
         return "Todo Created";
     }
 

@@ -15,11 +15,15 @@ public class TodoService {
         this.repository = repository;
     }
 
-    public List<Todo>getAllTodos(){
+    public List<Todo> getAllTodos(){
         return repository.findAll();
     }
 
-    public void createTodo(String title){
-        repository.save(title);
+    public List<Todo> getTodosByUserId(Long userId) {
+        return repository.findByUserId(userId);
+    }
+
+    public void createTodo(String title, boolean completed, Long userId){
+        repository.save(title, completed, userId);
     }
 }

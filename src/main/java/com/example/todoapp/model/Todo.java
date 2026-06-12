@@ -1,36 +1,47 @@
 package com.example.todoapp.model;
 
 public class Todo {
- private Long id;
- private String title; 
- private boolean completed;
- 
- public Todo(){
+   private Long id;
+   private String title;
+   private boolean completed;
+   private Long userId;
 
- }
- public Todo(Long id, String title, boolean completed){
-     this.id = id;
-     this.title = title;
-     this.completed = completed;
- }
+   public Todo() {
 
- public Long getId(){
-    return id;
- }
+   }
 
- public String getTitle(){
-    return title;
- }
+   public Todo(Long id, String title, boolean completed, Long userId) {
+      this.id = id;
+      this.title = title;
+      this.completed = completed;
+      this.userId = userId;
+   }
 
- public void setId(long id){
-    this.id = id;
- }
+   public Long getId() {
+      return id;
+   }
 
- public boolean isCompleted(){
-    return completed;
- }
+   public String getTitle() {
+      return title;
+   }
 
-  public void setComplete(boolean completed){
-    this.completed = completed;
-  }
+   public void setId(long id) {
+      this.id = id;
+   }
+
+   public boolean isCompleted() {
+      return completed;
+   }
+
+   public void setComplete(boolean completed) {
+      this.completed = completed;
+   }
+
+   public Long getUserId() {
+      return userId;
+   }
+
+   public void setUserId(Long userId) {
+      this.userId = userId;
+   }
 }

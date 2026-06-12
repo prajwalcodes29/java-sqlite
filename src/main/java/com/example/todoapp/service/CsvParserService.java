@@ -38,12 +38,15 @@ public class CsvParserService implements ApplicationContextAware {
 
             boolean hasHeader = line.toLowerCase().contains("title");
             if (!hasHeader) {
-                if (processAndInsert(line, jdbc)) inserted++;
+                if (processAndInsert(line, jdbc))
+                    inserted++;
             }
 
             while ((line = br.readLine()) != null) {
-                if (line.trim().isEmpty()) continue;
-                if (processAndInsert(line, jdbc)) inserted++;
+                if (line.trim().isEmpty())
+                    continue;
+                if (processAndInsert(line, jdbc))
+                    inserted++;
             }
 
             System.out.println("Successfully parsed and stored " + inserted + " rows in DB.");
@@ -55,10 +58,12 @@ public class CsvParserService implements ApplicationContextAware {
 
     private static boolean processAndInsert(String line, JdbcTemplate jdbc) {
         String[] cols = line.split(",", -1);
-        if (cols.length == 0) return false;
+        if (cols.length == 0)
+            return false;
 
         String title = cols[0].trim();
-        if (title.isEmpty()) return false;
+        if (title.isEmpty())
+            return false;
 
         boolean completed = false;
         if (cols.length > 1) {
@@ -66,7 +71,22 @@ public class CsvParserService implements ApplicationContextAware {
             completed = v.equals("true") || v.equals("1") || v.equals("yes");
         }
 
-        jdbc.update("INSERT INTO todos(title, completed) VALUES(?, ?)", title, completed ? 1 : 0);
+        Long userId = null;
+        if (cols.length > 2) {
+            String userIdValue = cols[2].trim();
+            if (!userIdValue.isEmpty()) {
+                try {
+                    userId = Long.valueOf(userIdValue);
+                } catch (NumberFormatException e) {
+                    System.out.println("Skipping invalid userId value: " + userIdValue);
+                }
+            }
+        }
+
+        jdbc.update("INSERT INTO todos(title, completed, user_id) VALUES(?, ?, ?)",
+                title,
+                completed ? 1 : 0,
+                userId);
         return true;
     }
 }
